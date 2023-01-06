@@ -3,4 +3,5 @@
     <string name="favourites_list">Favorites</string>
     <string name="my_task_list">My tasks</string>
     <string name="create_new_list">Create list</string>
+    <string name="empty_list">You have not ane task</string>
 </resources>

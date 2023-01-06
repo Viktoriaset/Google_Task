@@ -32,7 +32,7 @@
                 app:iconTintMode="multiply" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/task_text"
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:layout_marginLeft="10dp"

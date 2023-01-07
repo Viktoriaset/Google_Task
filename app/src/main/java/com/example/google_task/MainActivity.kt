@@ -3,21 +3,23 @@ package com.example.google_task
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup.LayoutParams
 import android.widget.Button
 import android.widget.LinearLayout
-import android.widget.ScrollView
 import android.widget.TextView
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.google_task.databinding.ActivityMainBinding
+import com.example.google_task.task.TaskData
+import com.example.google_task.task.TaskAdapter
 
 
 class MainActivity : AppCompatActivity() {
+
+    private val adapter = TaskAdapter()
+
     lateinit var binding: ActivityMainBinding
     lateinit var listsLayout : LinearLayout
-    lateinit var activityTaskLayout: LinearLayout
-    lateinit var activityTaskScrollView: ScrollView
     lateinit var emptyListText: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,9 +28,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         listsLayout = binding.listsLayout
-        activityTaskLayout = binding.activeTaskLayout
-        activityTaskScrollView = binding.activeTaskScrollView
         emptyListText = binding.emptyListText
+
+        init()
     }
 
     @SuppressLint("InflateParams")
@@ -44,13 +46,16 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    public fun onCLick_create_task(view: View){
-        var task: View = LayoutInflater.from(this).inflate(R.layout.task_scheme, activityTaskLayout, false)
-        task.layoutParams = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT)
-        activityTaskLayout.addView(task)
+    private fun init(){
+        binding.apply {
+            activeTaskRecycler.layoutManager = GridLayoutManager(this@MainActivity, 1)
+            activeTaskRecycler.adapter = adapter
+        }
+    }
 
-        emptyListText.visibility = View.GONE
-        activityTaskScrollView.visibility = View.VISIBLE
+    public fun onCLick_create_task(view: View){
+        val task = TaskData("temp task")
+        adapter.addTask(task)
    }
 
 

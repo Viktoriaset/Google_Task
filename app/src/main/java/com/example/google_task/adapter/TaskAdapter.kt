@@ -1,4 +1,4 @@
-package com.example.google_task.task
+package com.example.google_task.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -6,23 +6,24 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.google_task.R
+import com.example.google_task.data.entities.Task
 import com.example.google_task.databinding.TaskSchemeBinding
 
 
 class TaskAdapter : RecyclerView.Adapter<TaskAdapter.TaskHolder>() {
 
-    var taskList = ArrayList<TaskData>()
+    var taskList = ArrayList<Task>()
 
     class TaskHolder (item : View) : RecyclerView.ViewHolder(item){
         val binding = TaskSchemeBinding.bind(item)
 
-        fun bind(task: TaskData) = with(binding){
+        fun bind(task: Task) = with(binding){
             taskText.text = task.text
         }
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun addTask(task: TaskData){
+    fun addTask(task: Task){
         taskList.add(task)
         notifyDataSetChanged()
     }

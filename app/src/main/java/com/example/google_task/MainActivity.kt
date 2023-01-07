@@ -10,8 +10,8 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.google_task.databinding.ActivityMainBinding
-import com.example.google_task.task.TaskData
-import com.example.google_task.task.TaskAdapter
+import com.example.google_task.data.entities.Task
+import com.example.google_task.adapter.TaskAdapter
 
 
 class MainActivity : AppCompatActivity() {
@@ -41,9 +41,6 @@ class MainActivity : AppCompatActivity() {
         newButton.text = "custom name"
 
         listsLayout.addView(newButton)
-
-
-
     }
 
     private fun init(){
@@ -54,7 +51,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     public fun onCLick_create_task(view: View){
-        val task = TaskData("temp task")
+        val task = Task("temp task")
         adapter.addTask(task)
    }
 

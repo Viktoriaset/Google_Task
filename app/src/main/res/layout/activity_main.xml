@@ -90,7 +90,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="#00FFFFFF"
-                android:onClick="onClick_create_list"
+                android:onClick="onClick_createList"
                 android:text="@string/create_new_list"
                 android:textColor="#1E1E1E" />
 

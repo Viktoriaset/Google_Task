@@ -6,24 +6,24 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.google_task.R
-import com.example.google_task.data.entities.Task
+import com.example.google_task.data.entities.TaskEntity
 import com.example.google_task.databinding.TaskSchemeBinding
 
 
 class TaskAdapter : RecyclerView.Adapter<TaskAdapter.TaskHolder>() {
 
-    var taskList = ArrayList<Task>()
+    var taskList = ArrayList<TaskEntity>()
 
     class TaskHolder (item : View) : RecyclerView.ViewHolder(item){
         val binding = TaskSchemeBinding.bind(item)
 
-        fun bind(task: Task) = with(binding){
-            taskText.text = task.text
+        fun bind(task: TaskEntity) = with(binding){
+            taskText.text = task.TaskText
         }
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun addTask(task: Task){
+    fun addTask(task: TaskEntity){
         taskList.add(task)
         notifyDataSetChanged()
     }

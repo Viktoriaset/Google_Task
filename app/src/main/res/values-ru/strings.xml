@@ -4,4 +4,6 @@
     <string name="my_task_list">Мои задачи</string>
     <string name="create_new_list">Создать список</string>
     <string name="empty_list">У вас нет ни одной  задачи</string>
+    <string name="list_creator">"Введите название списка "</string>
+    <string name="list_creator_menu_title">"Создание списка "</string>
 </resources>

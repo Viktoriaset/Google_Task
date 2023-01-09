@@ -4,6 +4,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.ForeignKey.CASCADE
 import androidx.room.PrimaryKey
+import org.jetbrains.annotations.NotNull
 import kotlin.collections.List
 
 @Entity(
@@ -14,10 +15,11 @@ import kotlin.collections.List
         onDelete = CASCADE
     )]
 )
-data class Task(
+data class TaskEntity(
     @PrimaryKey(autoGenerate = true)
     var taskId : Int,
 
+    @NotNull
     var listId: Int,
 
     var TaskText : String

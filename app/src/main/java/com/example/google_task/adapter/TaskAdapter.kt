@@ -18,7 +18,7 @@ class TaskAdapter : RecyclerView.Adapter<TaskAdapter.TaskHolder>() {
         val binding = TaskSchemeBinding.bind(item)
 
         fun bind(task: TaskEntity) = with(binding){
-            taskText.text = task.TaskText
+            taskText.text = task.taskText
         }
     }
 

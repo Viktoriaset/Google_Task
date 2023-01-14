@@ -6,4 +6,8 @@
     <string name="empty_list">У вас нет ни одной  задачи</string>
     <string name="list_creator">"Введите название списка "</string>
     <string name="list_creator_menu_title">"Создание списка "</string>
+    <string name="task_creator_new_task">Новая задача</string>
+    <string name="task_creator_discription">Добавьте дополнительную информацию</string>
+    <string name="task_creator_date">Добавьте дату</string>
+    <string name="save">Сохранить</string>
 </resources>

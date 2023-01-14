@@ -1,5 +1,6 @@
 package com.example.google_task.data.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -21,6 +22,9 @@ interface ListDao {
     fun deleteList(list: ListEntity)
 
     @Query("SELECT * FROM Lists WHERE listId = :listId")
-    fun getById(listId: Int)
+    fun getById(listId: Int) : LiveData<ListEntity>
+
+    @Query("SELECT * FROM Lists")
+    fun getAllTaskLists() : LiveData<List<ListEntity>>
 
 }

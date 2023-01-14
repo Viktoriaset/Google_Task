@@ -1,13 +1,39 @@
 package com.example.google_task.task
 
+import androidx.lifecycle.LiveData
 import com.example.google_task.data.dao.TaskDao
 import com.example.google_task.data.entities.ListEntity
 import com.example.google_task.data.entities.TaskEntity
+import java.util.concurrent.Executors
+import javax.inject.Inject
 
-class RoomTaskDataSource(private val taskDao: TaskDao) : TaskDataSource {
+class RoomTaskDataSource @Inject constructor(
+    private val taskDao: TaskDao
+    ) : TaskDataSource {
 
-    override fun loudAllTaskByTaskList(list: ListEntity): List<TaskEntity> {
-        return taskDao.getAllByList(list.listId)
+    private val executor =  Executors.newSingleThreadExecutor()
+
+    override fun loudAllTasks(): LiveData<List<TaskEntity>> {
+        return taskDao.getAllTasks()
+    }
+
+    override fun loudAllTaskByTaskList(list: ListEntity): LiveData<List<TaskEntity>> {
+        return taskDao.getAllTasksByList(list.listId)
+    }
+
+    override fun insertNewTask(task: TaskEntity) {
+        executor.execute {
+            taskDao.insertTask(task)
+        }
+
+    }
+
+    override  fun updateTask(task: TaskEntity) {
+        taskDao.updateTask(task)
+    }
+
+    override fun deleteTask(task: TaskEntity) {
+        taskDao.deleteTask(task)
     }
 
 }

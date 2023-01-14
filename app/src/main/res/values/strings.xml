@@ -6,4 +6,8 @@
     <string name="empty_list">You have not ane task</string>
     <string name="list_creator">Input list name</string>
     <string name="list_creator_menu_title">Creating list</string>
+    <string name="task_creator_new_task">New task</string>
+    <string name="task_creator_discription">Add additional information</string>
+    <string name="task_creator_date">Add date</string>
+    <string name="save">Save</string>
 </resources>

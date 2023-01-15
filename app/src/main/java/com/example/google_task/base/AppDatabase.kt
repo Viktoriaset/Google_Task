@@ -17,7 +17,7 @@ import javax.inject.Provider
 @Database(entities = [
         ListEntity::class,
         TaskEntity::class],
-    version = 2, exportSchema = true)
+    version = 5, exportSchema = true)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun listDao() : ListDao
     abstract fun taskDao() : TaskDao

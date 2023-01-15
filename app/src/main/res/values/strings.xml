@@ -10,4 +10,5 @@
     <string name="task_creator_discription">Add additional information</string>
     <string name="task_creator_date">Add date</string>
     <string name="save">Save</string>
+    <string name="list_creator_input_name">Input list name</string>
 </resources>

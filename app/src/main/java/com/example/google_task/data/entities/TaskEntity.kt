@@ -2,6 +2,8 @@ package com.example.google_task.data.entities
 
 import android.os.Parcelable
 import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.ForeignKey.CASCADE
 import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 import org.jetbrains.annotations.NotNull
@@ -11,11 +13,11 @@ import java.util.*
 
 @Entity(
     tableName = "Tasks",
-    /*foreignKeys = [ForeignKey(entity = ListEntity::class,
+    foreignKeys = [ForeignKey(entity = ListEntity::class,
             parentColumns = ["listId"],
         childColumns = ["listId"],
         onDelete = CASCADE
-    )]*/
+    )]
 )
 @Parcelize
 data class TaskEntity(

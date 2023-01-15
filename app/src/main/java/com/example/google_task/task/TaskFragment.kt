@@ -19,6 +19,12 @@ class TaskFragment : Fragment(R.layout.fragment_task) {
 
     private lateinit var binding : FragmentTaskBinding
 
+    /*private var mPage : Int = 0
+
+    constructor(page: Int){
+        var args : Bundle = Bundle()
+        args.putInt(ARG_PAGE, page)
+    }*/
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -34,7 +40,7 @@ class TaskFragment : Fragment(R.layout.fragment_task) {
             }
         }
 
-        viewModel.insertTask(TaskEntity(listId = 0, taskText = "second task"))
+        viewModel.insertTask(TaskEntity(listId = 0, taskText = "3 task"))
 
         viewModel.tasksLiveData.observe(viewLifecycleOwner) { tasks ->
             tasks?.let{
@@ -45,6 +51,10 @@ class TaskFragment : Fragment(R.layout.fragment_task) {
 
     private fun updateUi(tasks: List<TaskEntity>){
         taskAdapter.submitList(tasks)
+    }
+
+    companion object{
+        const val ARG_PAGE : String = "ARG_PAGE"
     }
 
 }

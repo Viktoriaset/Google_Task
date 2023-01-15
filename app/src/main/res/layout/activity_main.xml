@@ -17,69 +17,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lists"
+        app:layout_constraintTop_toBottomOf="@+id/tabLayout"
         app:layout_constraintVertical_bias="0.369"
         app:navGraph="@navigation/nav_graph"
         tools:visibility="visible" />
-
-    <TextView
-        android:id="@+id/empty_list_text"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:gravity="center"
-        android:text="@string/empty_list"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/task_layout"
-        app:layout_constraintEnd_toEndOf="@+id/task_layout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/task_layout"
-        tools:visibility="gone" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/task_layout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:rotation="0"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/coordinatorLayout2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lists"
-        app:layout_constraintVertical_bias="1.0"
-        tools:visibility="gone">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/active_task_recycler"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@+id/completed_task_recycler"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/completed_task_recycler"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/active_task_recycler" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <HorizontalScrollView
         android:id="@+id/lists"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:contentDescription="contains lists for task "
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="visible">
+        tools:visibility="gone">
 
         <LinearLayout
             android:id="@+id/lists_layout"
@@ -131,7 +84,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/app_name"
-            android:onClick="onCLick_create_task"
+            android:onClick="onCLick_createTask"
             android:visibility="visible"
             app:backgroundTint="#FFFFFF"
             app:backgroundTintMode="src_in"
@@ -152,5 +105,33 @@
             app:layout_anchorGravity="center" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="409dp"
+        android:layout_height="wrap_content"
+        android:contentDescription="choose task list"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/ic_baseline_star_24" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabItem2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/my_task_list" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabItemCreateList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/create_new_list" />
+
+    </com.google.android.material.tabs.TabLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

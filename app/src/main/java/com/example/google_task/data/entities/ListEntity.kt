@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
     tableName = "Lists"
 )
 data class ListEntity(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     var listId: Int,
 
     var listName: String

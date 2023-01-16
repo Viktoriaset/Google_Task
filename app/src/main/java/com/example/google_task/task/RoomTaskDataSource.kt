@@ -21,6 +21,10 @@ class RoomTaskDataSource @Inject constructor(
         return taskDao.getAllTasksByList(listId)
     }
 
+    override fun loudTasksFavourite(): LiveData<List<TaskEntity>> {
+        return taskDao.getFavouriteTasks()
+    }
+
     override fun insertNewTask(task: TaskEntity) {
         executor.execute {
             taskDao.insertTask(task)
@@ -29,7 +33,9 @@ class RoomTaskDataSource @Inject constructor(
     }
 
     override  fun updateTask(task: TaskEntity) {
-        taskDao.updateTask(task)
+        executor.execute{
+            taskDao.updateTask(task)
+        }
     }
 
     override fun deleteTask(task: TaskEntity) {

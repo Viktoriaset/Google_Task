@@ -10,6 +10,8 @@ interface TaskDataSource {
 
     fun loudAllTasks(): LiveData<List<TaskEntity>>
 
+    fun loudTasksFavourite(): LiveData<List<TaskEntity>>
+
     fun insertNewTask(task: TaskEntity)
 
     fun updateTask(task: TaskEntity)

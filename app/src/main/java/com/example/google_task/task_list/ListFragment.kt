@@ -5,9 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.viewModels
 import com.example.google_task.R
-import com.example.google_task.data.entities.ListEntity
 import com.example.google_task.databinding.FragmentListBinding
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,12 +41,17 @@ class ListFragment : Fragment() {
                 listAdapter.setLists(it)
                 binding.viewPager.adapter = listAdapter
                 TabLayoutMediator(binding.tabLayout, binding.viewPager) {tab, position ->
-                    if (position < it.size){
-                        tab.text = it[position].listName
+                    if (position == 0){
+                        tab.icon = AppCompatResources.getDrawable(
+                            binding.tabLayout.context,
+                            R.drawable.ic_baseline_star_24)
+                    } else if (position - 1 < it.size){
+                        tab.text = it[position - 1].listName
                     }
                 }.attach()
             }
         }
     }
+
 
 }

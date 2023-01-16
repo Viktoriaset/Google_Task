@@ -5,24 +5,40 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.google_task.data.entities.ListEntity
 import com.example.google_task.data.entities.TaskEntity
 import com.example.google_task.databinding.ItemTaskBinding
+import javax.inject.Inject
 
-class TaskAdapter : ListAdapter<TaskEntity, TaskAdapter.TasksViewHolder>(DiffCallback()) {
+class TaskAdapter(
+    private val taskListener: TaskListener
+) : RecyclerView.Adapter<TaskAdapter.TasksViewHolder>() {
+
+    private var tasks: List<TaskEntity> = ArrayList<TaskEntity>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TasksViewHolder {
         val binding = ItemTaskBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return TasksViewHolder(binding)
+        return TasksViewHolder(binding, taskListener)
     }
 
     override fun onBindViewHolder(holder: TasksViewHolder, position: Int) {
-        val currentItem = getItem(position)
+        val currentItem = tasks[position]
         holder.bind(currentItem)
     }
 
+    override fun getItemCount(): Int {
+        return tasks.size
+    }
 
-    class TasksViewHolder(private val binding: ItemTaskBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    fun setTasks(tasks: List<TaskEntity>){
+        this.tasks = tasks
+    }
+
+
+    class TasksViewHolder(
+        private val binding: ItemTaskBinding,
+        private val taskListener: TaskListener
+        ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(task: TaskEntity) {
             binding.apply {
@@ -30,19 +46,17 @@ class TaskAdapter : ListAdapter<TaskEntity, TaskAdapter.TasksViewHolder>(DiffCal
                 checkBoxFavorite.isChecked = task.isFavorite
                 textViewName.text = task.taskText
                 textViewName.paint.isStrikeThruText = task.isCompleted
+
+                checkBoxFavorite.setOnClickListener{
+                    taskListener.updateTask(task)
+                }
+
+                checkBoxCompleted.setOnClickListener{
+                    taskListener.updateTask(task)
+                }
+
             }
         }
-    }
-
-    class DiffCallback : DiffUtil.ItemCallback<TaskEntity>(){
-        override fun areItemsTheSame(oldItem: TaskEntity, newItem: TaskEntity): Boolean {
-            return oldItem.taskId == newItem.taskId
-        }
-
-        override fun areContentsTheSame(oldItem: TaskEntity, newItem: TaskEntity): Boolean {
-            return oldItem == newItem
-        }
-
     }
 }
 

@@ -15,9 +15,14 @@ class TaskViewModel @Inject constructor(
     private var listId: Int = 0
 
     var tasksLiveData = roomTaskDataSource.loudAllTaskByTaskList(listId)
+    var tasksFavouriteLiveData = roomTaskDataSource.loudTasksFavourite()
 
     fun insertTask(task: TaskEntity){
         roomTaskDataSource.insertNewTask(task)
+    }
+
+    fun updateTask(task: TaskEntity){
+        roomTaskDataSource.updateTask(task)
     }
 
     fun setListId(listId: Int){

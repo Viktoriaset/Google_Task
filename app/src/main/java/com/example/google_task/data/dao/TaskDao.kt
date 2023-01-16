@@ -28,4 +28,7 @@ interface TaskDao{
     @Query("SELECT * FROM Tasks")
     fun getAllTasks() : LiveData<List<TaskEntity>>
 
+    @Query("SELECT * FROM Tasks WHERE isFavorite = 1")
+    fun getFavouriteTasks() : LiveData<List<TaskEntity>>
+
 }

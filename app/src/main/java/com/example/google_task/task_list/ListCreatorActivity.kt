@@ -8,18 +8,21 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.EditText
 import com.example.google_task.R
+import com.example.google_task.databinding.ActivityListCreatorBinding
 import com.example.google_task.databinding.ActivityMainBinding
 
 class ListCreatorActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivityMainBinding
+    lateinit var binding: ActivityListCreatorBinding
     private lateinit var listNameText: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_creator)
 
-        listNameText = findViewById(R.id.editTextListName)
+        binding = ActivityListCreatorBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -32,7 +35,9 @@ class ListCreatorActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.list_create_menu_button){
-            val result = Intent().putExtra(ListCreatorContract.LIST_NAME, listNameText.text.toString())
+            val result = Intent().putExtra(
+                ListCreatorContract.LIST_NAME,
+                binding.editTextListName.text.toString())
             setResult(Activity.RESULT_OK, result)
             finish()
         }

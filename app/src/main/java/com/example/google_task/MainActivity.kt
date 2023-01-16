@@ -6,15 +6,24 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
+import androidx.fragment.app.viewModels
+import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.widget.ViewPager2
 import com.example.google_task.databinding.ActivityMainBinding
 import com.example.google_task.data.entities.ListEntity
+import com.example.google_task.task_list.ListAdapter
+import com.example.google_task.task_list.ListCreatorContract
+import com.example.google_task.task_list.ListViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private var activityLauncher : ActivityResultLauncher<Intent>? = null
+    private var activityLauncher = registerForActivityResult(ListCreatorContract()){
+
+    }
 
     lateinit var binding: ActivityMainBinding
 
@@ -22,12 +31,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        activityLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-            if (it.resultCode == RESULT_OK){
-                var list = it.data?.getSerializableExtra("list") as ListEntity
-            }
-        }
     }
 
     fun onCLick_createTask(view: View){
@@ -41,8 +44,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onClick_createList(view: View){
-
+        activityLauncher.launch("create new list")
     }
-
 
 }

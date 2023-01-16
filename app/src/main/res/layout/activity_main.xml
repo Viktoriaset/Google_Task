@@ -22,54 +22,6 @@
         app:navGraph="@navigation/nav_graph"
         tools:visibility="visible" />
 
-    <HorizontalScrollView
-        android:id="@+id/lists"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:contentDescription="contains lists for task "
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="gone">
-
-        <LinearLayout
-            android:id="@+id/lists_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/favorites"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#00FFFFFF"
-                android:text="@string/favourites_list"
-                android:textColor="#1E1E1E" />
-
-            <Button
-                android:id="@+id/my_tasks"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="#00FFFFFF"
-                android:text="@string/my_task_list"
-                android:textColor="#1E1E1E" />
-
-            <Button
-                android:id="@+id/create_new_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="#00FFFFFF"
-                android:onClick="onClick_createList"
-                android:text="@string/create_new_list"
-                android:textColor="#1E1E1E" />
-
-        </LinearLayout>
-    </HorizontalScrollView>
-
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coordinatorLayout2"
         android:layout_width="0dp"
@@ -89,7 +41,8 @@
             app:backgroundTint="#FFFFFF"
             app:backgroundTintMode="src_in"
             app:borderWidth="0dp"
-            app:layout_anchor="@id/bottomAppBar3"
+            app:layout_anchor="@+id/bottomAppBar3"
+            app:layout_anchorGravity="top|center"
             app:maxImageSize="60dp"
             app:rippleColor="#00F40000"
             app:srcCompat="@drawable/ic_baseline_add_circle_24" />
@@ -111,27 +64,38 @@
         android:layout_width="409dp"
         android:layout_height="wrap_content"
         android:contentDescription="choose task list"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="gone">
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/tabItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:icon="@drawable/ic_baseline_star_24" />
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/tabItem2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/my_task_list" />
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/tabItemCreateList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="onClick_createList"
             android:text="@string/create_new_list" />
 
     </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/coordinatorLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tabLayout"
+        tools:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

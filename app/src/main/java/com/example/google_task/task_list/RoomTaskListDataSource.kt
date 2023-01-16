@@ -4,8 +4,11 @@ import androidx.lifecycle.LiveData
 import com.example.google_task.data.dao.ListDao
 import com.example.google_task.data.entities.ListEntity
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class RoomTaskListDataSource (private val taskListDao: ListDao) : TaskListDataSource {
+class RoomTaskListDataSource @Inject constructor(
+    private val taskListDao: ListDao
+    ) : TaskListDataSource {
 
     override fun loudAllTaskLists(): LiveData<List<ListEntity>> {
         return taskListDao.getAllTaskLists()

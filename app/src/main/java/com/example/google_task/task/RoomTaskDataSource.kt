@@ -17,8 +17,8 @@ class RoomTaskDataSource @Inject constructor(
         return taskDao.getAllTasks()
     }
 
-    override fun loudAllTaskByTaskList(list: ListEntity): LiveData<List<TaskEntity>> {
-        return taskDao.getAllTasksByList(list.listId)
+    override fun loudAllTaskByTaskList(listId: Int): LiveData<List<TaskEntity>> {
+        return taskDao.getAllTasksByList(listId)
     }
 
     override fun insertNewTask(task: TaskEntity) {

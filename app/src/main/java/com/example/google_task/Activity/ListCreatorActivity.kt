@@ -9,7 +9,7 @@ class ListCreatorActivity: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activite_list_creater)
+        setContentView(R.layout.activity_list_creator)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = getString(R.string.list_creator_menu_title)
     }

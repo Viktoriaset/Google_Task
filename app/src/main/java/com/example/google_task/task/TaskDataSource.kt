@@ -6,7 +6,7 @@ import com.example.google_task.data.entities.TaskEntity
 
 interface TaskDataSource {
 
-    fun loudAllTaskByTaskList(list: ListEntity) : LiveData<List<TaskEntity>>
+    fun loudAllTaskByTaskList(listId: Int) : LiveData<List<TaskEntity>>
 
     fun loudAllTasks(): LiveData<List<TaskEntity>>
 

@@ -22,7 +22,7 @@ interface TaskDao{
     @Delete
      fun deleteTask(task: TaskEntity)
 
-    @Query("SELECT * FROM Tasks WHERE listId = :listId")
+    @Query("SELECT * FROM Tasks WHERE listId = (:listId)")
     fun getAllTasksByList(listId: Int) : LiveData<List<TaskEntity>>
 
     @Query("SELECT * FROM Tasks")

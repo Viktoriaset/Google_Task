@@ -10,20 +10,25 @@ import com.example.google_task.R
 import com.example.google_task.data.entities.ListEntity
 import com.example.google_task.data.entities.TaskEntity
 import com.example.google_task.databinding.FragmentTaskBinding
+import com.example.google_task.task_list.ListFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class TaskFragment(private var list: ListEntity) : Fragment(R.layout.fragment_task) {
+class TaskFragment() : Fragment(R.layout.fragment_task) {
     private val viewModel : TaskViewModel by viewModels()
     private val taskAdapter = TaskAdapter()
 
+    private var listId: Int = 0
     private lateinit var binding : FragmentTaskBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel.setListId(list.listId)
+        arguments?.takeIf { it.containsKey(LIST_ID)}?.apply {
+            listId = getInt(LIST_ID)
+        }
+        viewModel.setListId(listId)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -39,8 +44,6 @@ class TaskFragment(private var list: ListEntity) : Fragment(R.layout.fragment_ta
             }
         }
 
-        viewModel.insertTask(TaskEntity(listId = list.listId, taskText = "3 task"))
-
         viewModel.tasksLiveData.observe(viewLifecycleOwner) { tasks ->
             tasks?.let{
                 updateUi(tasks)
@@ -53,7 +56,7 @@ class TaskFragment(private var list: ListEntity) : Fragment(R.layout.fragment_ta
     }
 
     companion object{
-        const val ARG_PAGE : String = "ARG_PAGE"
+        const val LIST_ID = "LIST_ID"
     }
 
 }

@@ -22,6 +22,7 @@ class TaskViewModel @Inject constructor(
 
     fun setListId(listId: Int){
         this.listId = listId
+        tasksLiveData = roomTaskDataSource.loudAllTaskByTaskList(listId)
     }
 
 }

@@ -1,5 +1,6 @@
 package com.example.google_task.task_list
 
+import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
@@ -17,7 +18,11 @@ class ListAdapter(fragment: Fragment): FragmentStateAdapter(fragment) {
     }
 
     override fun createFragment(position: Int): Fragment {
-        return TaskFragment(lists[position])
+        val fragment = TaskFragment()
+        fragment.arguments = Bundle().apply {
+            putInt(TaskFragment.LIST_ID, lists[position].listId)
+        }
+        return fragment
     }
 
     fun setLists(lists: List<ListEntity>){

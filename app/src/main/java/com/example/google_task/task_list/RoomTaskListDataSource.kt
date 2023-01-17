@@ -4,25 +4,34 @@ import androidx.lifecycle.LiveData
 import com.example.google_task.data.dao.ListDao
 import com.example.google_task.data.entities.ListEntity
 import kotlinx.coroutines.flow.Flow
+import java.util.concurrent.Executors
 import javax.inject.Inject
 
 class RoomTaskListDataSource @Inject constructor(
     private val taskListDao: ListDao
     ) : TaskListDataSource {
 
+    private val executor =  Executors.newSingleThreadExecutor()
+
     override fun loudAllTaskLists(): LiveData<List<ListEntity>> {
         return taskListDao.getAllTaskLists()
     }
 
     override fun insertNewTaskList(listEntity: ListEntity) {
-        taskListDao.insertList(listEntity)
+        executor.execute{
+            taskListDao.insertList(listEntity)
+        }
     }
 
     override fun updateTaskList(listEntity: ListEntity) {
-        taskListDao.updateList(listEntity)
+        executor.execute{
+            taskListDao.updateList(listEntity)
+        }
     }
 
     override fun deleteTaskList(listEntity: ListEntity) {
-        taskListDao.deleteList(listEntity)
+        executor.execute{
+            taskListDao.deleteList(listEntity)
+        }
     }
 }

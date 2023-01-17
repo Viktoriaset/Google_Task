@@ -41,6 +41,10 @@ class FavouriteTaskFragment : Fragment(R.layout.fragment_task), TaskListener {
         viewModel.updateTask(task)
     }
 
+    override fun deleteTask(task: TaskEntity) {
+        viewModel.deleteTask(task)
+    }
+
     private fun setObserve(){
         viewModel.tasksFavouriteLiveData.observe(viewLifecycleOwner) { tasks ->
             tasks?.let{

@@ -9,15 +9,15 @@
     app:layout_anchorGravity="right|top">
 
     <EditText
-        android:id="@+id/editTextTextPersonName2"
+        android:id="@+id/editTextTaskName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/task_creator_new_task"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="@string/task_creator_new_task" />
+        android:inputType="textPersonName" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName3"
+        android:id="@+id/editTextTaskDisription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -74,10 +74,11 @@
         </FrameLayout>
 
         <CheckBox
-            android:id="@+id/checkBox"
+            android:id="@+id/checkBoxIsFavourite"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0" />
+            android:layout_height="wrap_content"
+            android:button="@drawable/ic_baseline_star_24"
+             />
 
         <Button
             android:id="@+id/saveButton"
@@ -87,6 +88,7 @@
             android:layout_gravity="right|top"
             android:layout_weight="0"
             android:background="#00FFFFFF"
+            android:clickable="false"
             android:foregroundGravity="top|right"
             android:gravity="right|center_vertical"
             android:text="@string/save"

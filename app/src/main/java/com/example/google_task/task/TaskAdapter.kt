@@ -53,8 +53,7 @@ class TaskAdapter(
                 }
 
                 checkBoxCompleted.setOnClickListener{
-                    task.isCompleted = !task.isCompleted
-                    taskListener.updateTask(task)
+                    taskListener.deleteTask(task)
                 }
 
             }

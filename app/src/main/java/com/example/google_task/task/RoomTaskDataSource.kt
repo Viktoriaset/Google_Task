@@ -42,7 +42,9 @@ class RoomTaskDataSource @Inject constructor(
     }
 
     override fun deleteTask(task: TaskEntity) {
-        taskDao.deleteTask(task)
+        executor.execute{
+            taskDao.deleteTask(task)
+        }
     }
 
 }

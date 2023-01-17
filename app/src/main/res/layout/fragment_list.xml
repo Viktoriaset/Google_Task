@@ -6,8 +6,44 @@
     android:layout_height="match_parent"
     tools:context=".task_list.ListFragment">
 
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinatorLayout2"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/create_task_button"
+            style="@style/Theme.Google_Task"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/app_name"
+            android:visibility="visible"
+            app:backgroundTint="#FFFFFF"
+            app:backgroundTintMode="src_in"
+            app:borderWidth="0dp"
+            app:layout_anchor="@+id/bottomAppBar3"
+            app:layout_anchorGravity="top|center"
+            app:maxImageSize="60dp"
+            app:rippleColor="#00F40000"
+            app:srcCompat="@drawable/ic_baseline_add_circle_24" />
+
+        <com.google.android.material.bottomappbar.BottomAppBar
+            android:id="@+id/bottomAppBar3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:backgroundTint="@color/purple_200"
+            app:buttonGravity="bottom"
+            app:layout_anchor="@+id/bottomAppBar3"
+            app:layout_anchorGravity="center" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabLayout"
+        android:id="@+id/tabLayoutList"
         android:layout_width="409dp"
         android:layout_height="wrap_content"
         android:contentDescription="choose task list"
@@ -38,9 +74,9 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="#00AE0101"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/coordinatorLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/tabLayoutList" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

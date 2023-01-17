@@ -25,6 +25,10 @@ class TaskViewModel @Inject constructor(
         roomTaskDataSource.updateTask(task)
     }
 
+    fun deleteTask(task: TaskEntity){
+        roomTaskDataSource.deleteTask(task)
+    }
+
     fun setListId(listId: Int){
         this.listId = listId
         tasksLiveData = roomTaskDataSource.loudAllTaskByTaskList(listId)

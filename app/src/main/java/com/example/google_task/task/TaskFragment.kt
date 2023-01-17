@@ -64,6 +64,10 @@ class TaskFragment() : Fragment(R.layout.fragment_task), TaskListener {
         viewModel.updateTask(task)
     }
 
+    override fun deleteTask(task: TaskEntity) {
+        viewModel.deleteTask(task)
+    }
+
 
     companion object{
         const val LIST_ID = "LIST_ID"

@@ -2,6 +2,7 @@ package com.example.google_task.task
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -49,6 +50,7 @@ class TaskFragment() : Fragment(R.layout.fragment_task), TaskListener {
         viewModel.tasksLiveData.observe(viewLifecycleOwner) { tasks ->
             tasks?.let{
                 updateUi(tasks)
+                Log.d("BD return", it.toString())
             }
         }
     }

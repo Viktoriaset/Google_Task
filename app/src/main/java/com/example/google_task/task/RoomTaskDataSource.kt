@@ -1,5 +1,6 @@
 package com.example.google_task.task
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.example.google_task.data.dao.TaskDao
 import com.example.google_task.data.entities.ListEntity
@@ -26,6 +27,7 @@ class RoomTaskDataSource @Inject constructor(
     }
 
     override fun insertNewTask(task: TaskEntity) {
+
         executor.execute {
             taskDao.insertTask(task)
         }
@@ -33,8 +35,9 @@ class RoomTaskDataSource @Inject constructor(
     }
 
     override  fun updateTask(task: TaskEntity) {
+        Log.d("tag", task.toString())
         executor.execute{
-            taskDao.updateTask(task)
+             taskDao.updateTask(task)
         }
     }
 

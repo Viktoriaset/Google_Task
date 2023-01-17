@@ -48,10 +48,12 @@ class TaskAdapter(
                 textViewName.paint.isStrikeThruText = task.isCompleted
 
                 checkBoxFavorite.setOnClickListener{
+                    task.isFavorite = !task.isFavorite
                     taskListener.updateTask(task)
                 }
 
                 checkBoxCompleted.setOnClickListener{
+                    task.isCompleted = !task.isCompleted
                     taskListener.updateTask(task)
                 }
 

@@ -14,7 +14,7 @@
         android:theme="@style/Theme.Google_Task"
         tools:targetApi="31">
         <activity
-            android:name=".ListCreatorActivity"
+            android:name=".task_list.ListCreatorActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

@@ -23,14 +23,13 @@ import com.example.google_task.task_list.ListFragment
 import com.example.google_task.task_list.ListViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private var activityLauncher = registerForActivityResult(ListCreatorContract()){
 
-    }
 
     lateinit var binding: ActivityMainBinding
 
@@ -46,7 +45,7 @@ class MainActivity : AppCompatActivity() {
 
 
     fun onClick_createList(view: View){
-        activityLauncher.launch("create new list")
+
     }
 
 }

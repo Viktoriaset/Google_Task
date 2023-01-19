@@ -12,17 +12,29 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import com.example.google_task.R
+import com.example.google_task.data.entities.ListEntity
 import com.example.google_task.data.entities.TaskEntity
 import com.example.google_task.databinding.FragmentListBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.UUID
 
 @AndroidEntryPoint
 class ListFragment : Fragment() {
     private val viewModel: ListViewModel by viewModels()
     private lateinit var binding: FragmentListBinding
     private lateinit var listAdapter: ListAdapter
+
+    private var activityLauncher = registerForActivityResult(ListCreatorContract()){
+        if (it.size == 1){
+            val list = ListEntity(listName = it.toString())
+            viewModel.insertList(list)
+        } else if (it.size == 2){
+            val list = ListEntity(listId = UUID.fromString(it[1]), listName = it[0])
+            viewModel.updateList(list)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,23 +56,34 @@ class ListFragment : Fragment() {
             showTaskCreator()
         }
 
+        binding.buttomRedactorList.setOnClickListener{
+            showListRedactor()
+        }
+
         viewModel.listsLiveData.observe(viewLifecycleOwner){
             it?.let{
-                listAdapter.setLists(it)
-                binding.viewPager.adapter = listAdapter
-                TabLayoutMediator(binding.tabLayoutList, binding.viewPager) {tab, position ->
-                    if (position == 0){
-                        tab.icon = AppCompatResources.getDrawable(
-                            binding.tabLayoutList.context,
-                            R.drawable.ic_baseline_star_24)
-                    } else if (position - 1 < it.size){
-                        tab.text = it[position - 1].listName
-                    } else if (position == it.size + 1){
-                        tab.text = "Create List"
-                    }
-                }.attach()
+                configurationTabLayout(it)
             }
         }
+    }
+
+    private fun configurationTabLayout(it: List<ListEntity>){
+        listAdapter.setLists(it)
+        binding.viewPager.adapter = listAdapter
+        TabLayoutMediator(binding.tabLayoutList, binding.viewPager) {tab, position ->
+            if (position == 0){
+                tab.icon = AppCompatResources.getDrawable(
+                    binding.tabLayoutList.context,
+                    R.drawable.ic_baseline_star_24)
+            } else if (position - 1 < it.size){
+                tab.text = it[position - 1].listName
+            } else if (position == it.size + 1){
+                tab.text = "Create List"
+                tab.view.setOnClickListener {
+                    activityLauncher.launch(ListCreatorContract.CREATE_LIST)
+                }
+            }
+        }.attach()
     }
 
     private fun showTaskCreator(){
@@ -68,42 +91,41 @@ class ListFragment : Fragment() {
         val bottomSheetDialog = BottomSheetDialog(requireContext())
         bottomSheetDialog.setContentView(R.layout.task_creator_bottom_sheet_dialog)
 
-        val taskNameText : EditText? = bottomSheetDialog.findViewById<EditText>(R.id.editTextTaskName)
-        val descriptionText : EditText? = bottomSheetDialog.findViewById(R.id.editTextTaskDisription)
-        val isFavouriteCheckBox: CheckBox? = bottomSheetDialog.findViewById(R.id.checkBoxIsFavourite)
-        val addDescriptionButton: Button? = bottomSheetDialog.findViewById(R.id.addDescriptionButton)
-        val saveButton: Button? = bottomSheetDialog.findViewById(R.id.saveButton)
+        val textTaskName: EditText? = bottomSheetDialog.findViewById(R.id.editTextTaskName)
+        val textDescription: EditText? = bottomSheetDialog.findViewById(R.id.editTextTaskDisription)
+        val checkBoxIsFavourite: CheckBox? = bottomSheetDialog.findViewById(R.id.checkBoxIsFavourite)
+        val buttonAddDescription: Button? = bottomSheetDialog.findViewById(R.id.addDescriptionButton)
+        val buttonSave: Button? = bottomSheetDialog.findViewById(R.id.saveButton)
 
 
-        taskNameText?.let {
+        textTaskName?.let {
             it.doOnTextChanged{ text, start, before, count ->
                 if (text.toString().isEmpty()) {
-                    saveButton?.isClickable = false
-                    saveButton?.setTextColor(resources.getColor(R.color.gray))
+                    buttonSave?.isClickable = false
+                    buttonSave?.setTextColor(resources.getColor(R.color.gray))
                 } else {
-                    saveButton?.isClickable = true
-                    saveButton?.setTextColor(resources.getColor(R.color.black))
+                    buttonSave?.isClickable = true
+                    buttonSave?.setTextColor(resources.getColor(R.color.black))
                 }
             }
         }
 
-        addDescriptionButton?.let { it ->
+        buttonAddDescription?.let { it ->
             it.setOnClickListener {
-                descriptionText?.visibility = View.VISIBLE
+                textDescription?.visibility = View.VISIBLE
             }
         }
 
-        saveButton?.let {
+        buttonSave?.let {
             it.setOnClickListener{
-                var listId = binding.tabLayoutList.selectedTabPosition
-                if (listId == 0){
-                    listId = 1
-                }
-                val taskName = taskNameText?.text ?: ""
-                val taskDescription = descriptionText?.text ?: ""
-                val isFavourite = isFavouriteCheckBox?.isChecked ?: false
+                var tabPosition = binding.tabLayoutList.selectedTabPosition
+                var listIdString = listAdapter.getListUUID(tabPosition)
+                var listUUID = UUID.fromString(listIdString)
+                val taskName = textTaskName?.text ?: ""
+                val taskDescription = textDescription?.text ?: ""
+                val isFavourite = checkBoxIsFavourite?.isChecked ?: false
                 val newTask = TaskEntity(
-                    listId = listId,
+                    listId = listUUID,
                     taskText = taskName.toString(),
                     taskDescription = taskDescription.toString(),
                     isFavorite = isFavourite)
@@ -113,6 +135,36 @@ class ListFragment : Fragment() {
             }
             it.isClickable = false
         }
+        bottomSheetDialog.show()
+    }
+
+    private fun showListRedactor(){
+        val bottomSheetDialog = BottomSheetDialog(requireContext())
+        bottomSheetDialog.setContentView(R.layout.list_redactor_bottom_sheet)
+
+        val buttonRedactorListName : Button? = bottomSheetDialog.findViewById(R.id.buttonRenameList)
+        val buttonDeleteList: Button? = bottomSheetDialog.findViewById(R.id.buttonDeleteList)
+
+        var tabPosition = binding.tabLayoutList.selectedTabPosition
+        if (tabPosition == 0){
+            tabPosition = 1
+        }
+        var listIdString = listAdapter.getListUUID(tabPosition)
+
+        buttonRedactorListName?.let{
+            it.setOnClickListener {
+                activityLauncher.launch(listIdString)
+
+            }
+        }
+
+        buttonDeleteList?.let {
+            it.setOnClickListener {
+                viewModel.deleteList(listAdapter.getList(tabPosition))
+                bottomSheetDialog.hide()
+            }
+        }
+
         bottomSheetDialog.show()
     }
 

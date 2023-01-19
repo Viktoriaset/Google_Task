@@ -8,6 +8,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.example.google_task.data.entities.TaskEntity
+import java.util.*
 import java.util.concurrent.Flow
 
 @Dao
@@ -23,7 +24,7 @@ interface TaskDao{
      fun deleteTask(task: TaskEntity)
 
     @Query("SELECT * FROM Tasks WHERE listId = (:listId)")
-    fun getAllTasksByList(listId: Int) : LiveData<List<TaskEntity>>
+    fun getAllTasksByList(listId: UUID) : LiveData<List<TaskEntity>>
 
     @Query("SELECT * FROM Tasks")
     fun getAllTasks() : LiveData<List<TaskEntity>>

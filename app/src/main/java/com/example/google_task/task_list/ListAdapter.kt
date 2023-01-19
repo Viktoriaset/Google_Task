@@ -7,11 +7,11 @@ import com.example.google_task.data.entities.ListEntity
 import com.example.google_task.task.FavouriteTaskFragment
 import com.example.google_task.task.TaskFragment
 
-class ListAdapter(fragment: Fragment): FragmentStateAdapter(fragment) {
+class ListAdapter(private val fragment: ListFragment): FragmentStateAdapter(fragment) {
 
     private var  lists : List<ListEntity> = ArrayList<ListEntity>()
     override fun getItemCount(): Int {
-        return lists.size + 1
+        return lists.size + 2
     }
 
     override fun createFragment(position: Int): Fragment {
@@ -20,10 +20,13 @@ class ListAdapter(fragment: Fragment): FragmentStateAdapter(fragment) {
             0 -> {
                 fragment = FavouriteTaskFragment()
             }
+            lists.size + 1 -> {
+                fragment = FavouriteTaskFragment()
+            }
             else -> {
                 fragment = TaskFragment()
                 fragment.arguments = Bundle().apply {
-                    putInt(TaskFragment.LIST_ID, lists[position - 1].listId)
+                    putString(TaskFragment.LIST_ID, lists[position - 1].listId.toString())
                 }
             }
         }
@@ -34,4 +37,13 @@ class ListAdapter(fragment: Fragment): FragmentStateAdapter(fragment) {
         this.lists = lists
         notifyDataSetChanged()
     }
+
+    fun getListUUID(position: Int): String{
+        return lists[position-1].listId.toString()
+    }
+
+    fun getList(position: Int): ListEntity{
+        return lists[position-1]
+    }
+
 }

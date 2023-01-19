@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import com.example.google_task.data.dao.ListDao
 import com.example.google_task.data.entities.ListEntity
 import kotlinx.coroutines.flow.Flow
+import java.util.*
 import java.util.concurrent.Executors
 import javax.inject.Inject
 
@@ -33,5 +34,9 @@ class RoomTaskListDataSource @Inject constructor(
         executor.execute{
             taskListDao.deleteList(listEntity)
         }
+    }
+
+    override fun getTaskByUUID(uuid: UUID): LiveData<ListEntity> {
+        return taskListDao.getListByUUID(uuid)
     }
 }

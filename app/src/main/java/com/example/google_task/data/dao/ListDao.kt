@@ -8,6 +8,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.example.google_task.data.entities.ListEntity
+import java.util.UUID
 
 @Dao
 interface ListDao {
@@ -26,5 +27,8 @@ interface ListDao {
 
     @Query("SELECT * FROM Lists")
     fun getAllTaskLists() : LiveData<List<ListEntity>>
+
+    @Query("SELECT * FROM Lists WHERE listId = (:uuid) LIMIT 1")
+    fun getListByUUID(uuid: UUID) : LiveData<ListEntity>
 
 }

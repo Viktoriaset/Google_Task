@@ -32,24 +32,44 @@
 
         <com.google.android.material.bottomappbar.BottomAppBar
             android:id="@+id/bottomAppBar3"
+            style="@style/Widget.MaterialComponents.BottomAppBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:backgroundTint="@color/purple_200"
             app:buttonGravity="bottom"
+            app:fabAlignmentMode="center"
             app:layout_anchor="@+id/bottomAppBar3"
-            app:layout_anchorGravity="center" />
+            app:layout_anchorGravity="center"
+            >
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/buttomRedactorList"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="#00FFFFFF"
+                    android:contentDescription="list Redactor"
+                    android:src="@drawable/ic_baseline_menu_24" />
+            </RelativeLayout>
+            </com.google.android.material.bottomappbar.BottomAppBar>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayoutList"
-        android:layout_width="409dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:contentDescription="choose task list"
+        android:isScrollContainer="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:tabGravity="center"
+        app:tabMaxWidth="0dp"
+        app:tabMode="scrollable">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="none">
+        <item
+            android:id="@+id/changeListName"
+            android:title="@string/change_list_name" />
+        <item
+            android:id="@+id/deleteList"
+            android:title="@string/delete_list" />
+
+    </group>
+</menu>

@@ -17,7 +17,7 @@ import javax.inject.Provider
 @Database(entities = [
         ListEntity::class,
         TaskEntity::class],
-    version = 5, exportSchema = true)
+    version = 7, exportSchema = true)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun listDao() : ListDao
     abstract fun taskDao() : TaskDao
@@ -30,20 +30,6 @@ abstract class AppDatabase : RoomDatabase() {
         override fun onCreate(db: SupportSQLiteDatabase) {
             super.onCreate(db)
 
-            val taskDao = database.get().taskDao()
-            //val taskListDao = database.get().listDao()
-            Log.i("Callback creating ", "${taskDao.toString()}" )
-
-            applicationScope.launch {
-                taskDao.insertTask(TaskEntity(taskText = "first task", listId = 0))
-                taskDao.insertTask(TaskEntity(taskText = "first task", listId = 0))
-                taskDao.insertTask(TaskEntity(taskText = "first task", listId = 0))
-                taskDao.insertTask(TaskEntity(taskText = "first task", listId = 0))
-                taskDao.insertTask(TaskEntity(taskText = "first task", listId = 0))
-                taskDao.insertTask(TaskEntity(taskText = "first task", listId = 0))
-                taskDao.insertTask(TaskEntity(taskText = "first task", listId = 0))
-                taskDao.insertTask(TaskEntity(taskText = "first task", listId = 0))
-            }
         }
     }
 }

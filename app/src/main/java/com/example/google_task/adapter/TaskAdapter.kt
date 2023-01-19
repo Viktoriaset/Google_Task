@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.google_task.R
 import com.example.google_task.data.entities.TaskEntity
-import com.example.google_task.databinding.TaskSchemeBinding
+import com.example.google_task.databinding.ItemTaskBinding
 
 
 class TaskAdapter : RecyclerView.Adapter<TaskAdapter.TaskHolder>() {
@@ -15,10 +15,10 @@ class TaskAdapter : RecyclerView.Adapter<TaskAdapter.TaskHolder>() {
     var taskList = ArrayList<TaskEntity>()
 
     class TaskHolder (item : View) : RecyclerView.ViewHolder(item){
-        val binding = TaskSchemeBinding.bind(item)
+        val binding = ItemTaskBinding.bind(item)
 
         fun bind(task: TaskEntity) = with(binding){
-            taskText.text = task.taskText
+            textViewName.text = task.taskText
         }
     }
 
@@ -29,7 +29,7 @@ class TaskAdapter : RecyclerView.Adapter<TaskAdapter.TaskHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.task_scheme, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_task, parent, false)
         return TaskHolder(view)
     }
 

@@ -12,9 +12,7 @@ class TaskViewModel @Inject constructor(
     private val roomTaskDataSource: RoomTaskDataSource,
 ) : ViewModel() {
 
-    private var listId: Int = 0
-
-    var tasksLiveData = roomTaskDataSource.loudAllTaskByTaskList(listId)
+    lateinit var tasksLiveData : LiveData<List<TaskEntity>>
     var tasksFavouriteLiveData = roomTaskDataSource.loudTasksFavourite()
 
     fun insertTask(task: TaskEntity){
@@ -29,8 +27,7 @@ class TaskViewModel @Inject constructor(
         roomTaskDataSource.deleteTask(task)
     }
 
-    fun setListId(listId: Int){
-        this.listId = listId
+    fun setListId(listId: String){
         tasksLiveData = roomTaskDataSource.loudAllTaskByTaskList(listId)
     }
 

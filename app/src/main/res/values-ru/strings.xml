@@ -11,4 +11,6 @@
     <string name="task_creator_date">Добавьте дату</string>
     <string name="save">Сохранить</string>
     <string name="list_creator_input_name">Введите название списка</string>
+    <string name="change_list_name">Переименовать список</string>
+    <string name="delete_list">Удалить список</string>
 </resources>

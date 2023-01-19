@@ -19,16 +19,20 @@ class TaskFragment() : Fragment(R.layout.fragment_task), TaskListener {
     private val viewModel : TaskViewModel by viewModels()
     private val taskAdapter = TaskAdapter(this)
 
-    private var listId: Int = 0
+    private var listId: String = ""
     private lateinit var binding : FragmentTaskBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         arguments?.takeIf { it.containsKey(LIST_ID)}?.apply {
-            listId = getInt(LIST_ID)
+            val tempListId = getString(LIST_ID)
+            tempListId?.let {
+                listId = tempListId
+            }
         }
         viewModel.setListId(listId)
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

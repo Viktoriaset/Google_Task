@@ -48,14 +48,10 @@ class FavouriteTaskFragment : Fragment(R.layout.fragment_task), TaskListener {
     private fun setObserve(){
         viewModel.tasksFavouriteLiveData.observe(viewLifecycleOwner) { tasks ->
             tasks?.let{
-                updateUi(tasks)
+                taskAdapter.setTasks(tasks)
+                binding.recyclerView.adapter = taskAdapter
             }
         }
-    }
-
-    private fun updateUi(tasks: List<TaskEntity>){
-        taskAdapter.setTasks(tasks)
-        binding.recyclerView.adapter = taskAdapter
     }
 
 }

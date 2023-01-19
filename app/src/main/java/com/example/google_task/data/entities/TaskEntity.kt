@@ -25,7 +25,7 @@ data class TaskEntity(
     var taskId: Int = 0,
 
     @NotNull
-    var listId: Int,
+    var listId: UUID,
 
     var taskText: String,
 

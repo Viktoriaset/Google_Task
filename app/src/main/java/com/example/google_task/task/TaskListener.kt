@@ -1,27 +1,12 @@
 package com.example.google_task.task
 
-import android.widget.Toast
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import com.example.google_task.R
 import com.example.google_task.data.entities.TaskEntity
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
-class TaskListener(private val fragment: Fragment) : Fragment(), TaskListenerInterface {
+interface TaskListener {
 
-    private val viewModel : TaskViewModel by viewModels()
+    fun updateTask(task: TaskEntity)
 
-    override fun updateTask(task: TaskEntity) {
-        viewModel.updateTask(task)
-    }
+    fun deleteTask(task: TaskEntity)
 
-    override fun deleteTask(task: TaskEntity) {
-        Toast.makeText(fragment.requireContext(), fragment.getString(R.string.completed_task), Toast.LENGTH_LONG).show()
-        viewModel.deleteTask(task)
-    }
-
-    override fun showTaskDescription(task: TaskEntity) {
-        Toast.makeText(fragment.requireContext(), task.taskDescription, Toast.LENGTH_LONG).show()
-    }
+    fun showTaskDescription(task: TaskEntity)
 }

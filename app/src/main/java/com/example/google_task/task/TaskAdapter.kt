@@ -2,12 +2,17 @@ package com.example.google_task.task
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.google_task.data.entities.ListEntity
 import com.example.google_task.data.entities.TaskEntity
 import com.example.google_task.databinding.ItemTaskBinding
+import javax.inject.Inject
 
 class TaskAdapter(
-    private val taskListener: TaskListenerInterface
+    private val taskListener: TaskListener
 ) : RecyclerView.Adapter<TaskAdapter.TasksViewHolder>() {
 
     private var tasks: List<TaskEntity> = ArrayList<TaskEntity>()
@@ -33,7 +38,7 @@ class TaskAdapter(
 
     class TasksViewHolder(
         private val binding: ItemTaskBinding,
-        private val taskListener: TaskListenerInterface
+        private val taskListener: TaskListener
         ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(task: TaskEntity) {

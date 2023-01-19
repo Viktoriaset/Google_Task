@@ -12,10 +12,10 @@ import com.example.google_task.databinding.FragmentTaskBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class FavouriteTaskFragment : Fragment(R.layout.fragment_task) {
+class FavouriteTaskFragment : Fragment(R.layout.fragment_task), TaskListener {
     private val viewModel : TaskViewModel by viewModels()
-    private val taskListener = TaskListener( this)
-    private val taskAdapter = TaskAdapter(taskListener)
+    private val taskAdapter = TaskAdapter(this)
+
     private lateinit var binding : FragmentTaskBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -32,6 +32,19 @@ class FavouriteTaskFragment : Fragment(R.layout.fragment_task) {
         }
 
         setObserve()
+    }
+
+    override fun updateTask(task: TaskEntity) {
+        viewModel.updateTask(task)
+    }
+
+    override fun deleteTask(task: TaskEntity) {
+        Toast.makeText(requireContext(), getString(R.string.completed_task), Toast.LENGTH_LONG).show()
+        viewModel.deleteTask(task)
+    }
+
+    override fun showTaskDescription(task: TaskEntity) {
+        Toast.makeText(requireContext(), task.taskDescription, Toast.LENGTH_LONG).show()
     }
 
     private fun setObserve(){

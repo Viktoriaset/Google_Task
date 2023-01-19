@@ -9,17 +9,16 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.google_task.R
-import com.example.google_task.data.entities.ListEntity
 import com.example.google_task.data.entities.TaskEntity
 import com.example.google_task.databinding.FragmentTaskBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class TaskFragment() : Fragment(R.layout.fragment_task), TaskListener {
+class TaskFragment() : Fragment(R.layout.fragment_task) {
     private val viewModel : TaskViewModel by viewModels()
-    private val taskAdapter = TaskAdapter(this)
-
+    private val taskListener = TaskListener(this)
+    private val taskAdapter = TaskAdapter(taskListener)
     private var listId: String = ""
     private lateinit var binding : FragmentTaskBinding
 
@@ -54,28 +53,10 @@ class TaskFragment() : Fragment(R.layout.fragment_task), TaskListener {
     private fun setObserve(){
         viewModel.tasksLiveData.observe(viewLifecycleOwner) { tasks ->
             tasks?.let{
-                updateUi(tasks)
-                Log.d("BD return", it.toString())
+                taskAdapter.setTasks(tasks)
+                binding.recyclerView.adapter = taskAdapter
             }
         }
-    }
-
-    private fun updateUi(tasks: List<TaskEntity>){
-        taskAdapter.setTasks(tasks)
-        binding.recyclerView.adapter = taskAdapter
-    }
-
-    override fun updateTask(task: TaskEntity) {
-        viewModel.updateTask(task)
-    }
-
-    override fun deleteTask(task: TaskEntity) {
-        Toast.makeText(requireContext(), getString(R.string.completed_task), Toast.LENGTH_LONG).show()
-        viewModel.deleteTask(task)
-    }
-
-    override fun showTaskDescription(task: TaskEntity) {
-        Toast.makeText(requireContext(), task.taskDescription, Toast.LENGTH_LONG).show()
     }
 
     companion object{

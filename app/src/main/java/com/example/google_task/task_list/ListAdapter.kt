@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.google_task.data.entities.ListEntity
-import com.example.google_task.task.FavouriteTaskFragment
 import com.example.google_task.task.TaskFragment
 
 class ListAdapter(private val fragment: ListFragment): FragmentStateAdapter(fragment) {
@@ -16,18 +15,12 @@ class ListAdapter(private val fragment: ListFragment): FragmentStateAdapter(frag
 
     override fun createFragment(position: Int): Fragment {
         val fragment: Fragment
-        when (position) {
-            0 -> {
-                fragment = FavouriteTaskFragment()
-            }
-            lists.size + 1 -> {
-                fragment = FavouriteTaskFragment()
-            }
-            else -> {
-                fragment = TaskFragment()
-                fragment.arguments = Bundle().apply {
-                    putString(TaskFragment.LIST_ID, lists[position - 1].listId.toString())
-                }
+        if (position == 0 || position == lists.size + 1){
+            fragment = TaskFragment(true)
+        } else  {
+            fragment = TaskFragment(false)
+            fragment.arguments = Bundle().apply {
+                putString(TaskFragment.LIST_ID, lists[position - 1].listId.toString())
             }
         }
         return fragment

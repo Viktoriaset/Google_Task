@@ -16,10 +16,10 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class TaskFragment() : Fragment(R.layout.fragment_task), TaskListener {
+class TaskFragment(private var isFavourite: Boolean) : Fragment(R.layout.fragment_task), TaskListener {
+
     private val viewModel : TaskViewModel by viewModels()
     private val taskAdapter = TaskAdapter(this)
-
     private var listId: String = ""
     private lateinit var binding : FragmentTaskBinding
 
@@ -30,10 +30,9 @@ class TaskFragment() : Fragment(R.layout.fragment_task), TaskListener {
             val tempListId = getString(LIST_ID)
             tempListId?.let {
                 listId = tempListId
+                viewModel.setListId(listId)
             }
         }
-        viewModel.setListId(listId)
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,10 +51,17 @@ class TaskFragment() : Fragment(R.layout.fragment_task), TaskListener {
     }
 
     private fun setObserve(){
+        if (isFavourite){
+            viewModel.tasksFavouriteLiveData.observe(viewLifecycleOwner){
+                it?.let{
+                    updateUi(it)
+                }
+            }
+            return
+        }
         viewModel.tasksLiveData.observe(viewLifecycleOwner) { tasks ->
             tasks?.let{
                 updateUi(tasks)
-                Log.d("BD return", it.toString())
             }
         }
     }

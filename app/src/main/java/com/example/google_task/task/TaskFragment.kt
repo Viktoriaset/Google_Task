@@ -70,6 +70,7 @@ class TaskFragment() : Fragment(R.layout.fragment_task), TaskListener {
     }
 
     override fun deleteTask(task: TaskEntity) {
+        Toast.makeText(requireContext(), getString(R.string.completed_task), Toast.LENGTH_LONG).show()
         viewModel.deleteTask(task)
     }
 

@@ -15,4 +15,5 @@
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="change_list_name">Rename lsit</string>
     <string name="delete_list">Delete list</string>
+    <string name="completed_task">Congratulations you have completed the task</string>
 </resources>

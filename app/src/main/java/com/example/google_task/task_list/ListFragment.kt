@@ -33,6 +33,8 @@ class ListFragment : Fragment() {
         } else if (it.size == 2){
             val list = ListEntity(listId = UUID.fromString(it[1]), listName = it[0])
             viewModel.updateList(list)
+        } else {
+            binding.tabLayoutList.selectTab(binding.tabLayoutList.getTabAt(0))
         }
     }
 
@@ -77,6 +79,7 @@ class ListFragment : Fragment() {
                     R.drawable.ic_baseline_star_24)
             } else if (position - 1 < it.size){
                 tab.text = it[position - 1].listName
+                tab.view.setOnClickListener(null)
             } else if (position == it.size + 1){
                 tab.text = "Create List"
                 tab.view.setOnClickListener {
@@ -146,7 +149,7 @@ class ListFragment : Fragment() {
         val buttonDeleteList: Button? = bottomSheetDialog.findViewById(R.id.buttonDeleteList)
 
         var tabPosition = binding.tabLayoutList.selectedTabPosition
-        if (tabPosition == 0 || tabPosition == listAdapter.itemCount - 1){
+        if (tabPosition == 0 || tabPosition == 1 || tabPosition == listAdapter.itemCount - 1){
             return
         }
         var listIdString = listAdapter.getListUUID(tabPosition)

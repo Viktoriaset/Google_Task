@@ -1,9 +1,8 @@
-package com.example.google_task.task
+package com.example.google_task.task.data_source
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import com.example.google_task.data.dao.TaskDao
-import com.example.google_task.data.entities.ListEntity
 import com.example.google_task.data.entities.TaskEntity
 import java.util.*
 import java.util.concurrent.Executors

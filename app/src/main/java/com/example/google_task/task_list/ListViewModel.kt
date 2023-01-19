@@ -1,11 +1,11 @@
 package com.example.google_task.task_list
 
-import android.location.GnssAntennaInfo.Listener
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.example.google_task.data.entities.ListEntity
 import com.example.google_task.data.entities.TaskEntity
-import com.example.google_task.task.RoomTaskDataSource
+import com.example.google_task.task.data_source.RoomTaskDataSource
+import com.example.google_task.task_list.data_source.RoomTaskListDataSource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.util.*
 import javax.inject.Inject

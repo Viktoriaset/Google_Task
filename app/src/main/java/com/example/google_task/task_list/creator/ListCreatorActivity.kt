@@ -1,4 +1,4 @@
-package com.example.google_task.task_list
+package com.example.google_task.task_list.creator
 
 import android.app.Activity
 import android.content.Intent
@@ -6,13 +6,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.example.google_task.R
 import com.example.google_task.data.entities.ListEntity
 import com.example.google_task.databinding.ActivityListCreatorBinding
-import com.example.google_task.databinding.ActivityMainBinding
+import com.example.google_task.task_list.ListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -51,12 +50,12 @@ class ListCreatorActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.list_create_menu_button){
             val result = Intent().putExtra(
-                    ListCreatorContract.LIST_NAME,
+                ListCreatorContract.LIST_NAME,
                     binding.editTextListName.text.toString()
                 )
             if(isUpdate) {
                 result.putExtra(
-                        ListCreatorContract.UPDATE_LIST,
+                    ListCreatorContract.UPDATE_LIST,
                         list.listId.toString()
                     )
             }

@@ -28,7 +28,7 @@ class ListFragment : Fragment() {
 
     private var activityLauncher = registerForActivityResult(ListCreatorContract()){
         if (it.size == 1){
-            val list = ListEntity(listName = it.toString())
+            val list = ListEntity(listName = it[0].toString())
             viewModel.insertList(list)
         } else if (it.size == 2){
             val list = ListEntity(listId = UUID.fromString(it[1]), listName = it[0])
@@ -146,8 +146,8 @@ class ListFragment : Fragment() {
         val buttonDeleteList: Button? = bottomSheetDialog.findViewById(R.id.buttonDeleteList)
 
         var tabPosition = binding.tabLayoutList.selectedTabPosition
-        if (tabPosition == 0){
-            tabPosition = 1
+        if (tabPosition == 0 || tabPosition == listAdapter.itemCount - 1){
+            return
         }
         var listIdString = listAdapter.getListUUID(tabPosition)
 

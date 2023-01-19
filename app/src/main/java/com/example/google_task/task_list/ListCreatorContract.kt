@@ -1,5 +1,6 @@
 package com.example.google_task.task_list
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import androidx.activity.result.contract.ActivityResultContract
@@ -19,14 +20,17 @@ class ListCreatorContract: ActivityResultContract<String, List<String>>() {
 
 
     override fun parseResult(resultCode: Int, intent: Intent?): List<String> {
-        val listName = intent?.getStringExtra(LIST_NAME)
-        val listUUIDString = intent?.getStringExtra(UPDATE_LIST)
         var resultList = ArrayList<String>()
-        listName?.let {
-            resultList.add(listName)
-        }
-        listUUIDString?.let {
-            resultList.add(listUUIDString)
+        if (resultCode == Activity.RESULT_OK) {
+            val listName = intent?.getStringExtra(LIST_NAME)
+            val listUUIDString = intent?.getStringExtra(UPDATE_LIST)
+            listName?.let {
+                resultList.add(listName)
+            }
+            listUUIDString?.let {
+                resultList.add(listUUIDString)
+            }
+            return resultList
         }
         return resultList
     }

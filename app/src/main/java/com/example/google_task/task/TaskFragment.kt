@@ -4,6 +4,7 @@ package com.example.google_task.task
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -72,6 +73,9 @@ class TaskFragment() : Fragment(R.layout.fragment_task), TaskListener {
         viewModel.deleteTask(task)
     }
 
+    override fun showTaskDescription(task: TaskEntity) {
+        Toast.makeText(requireContext(), task.taskDescription, Toast.LENGTH_LONG).show()
+    }
 
     companion object{
         const val LIST_ID = "LIST_ID"

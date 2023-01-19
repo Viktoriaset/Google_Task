@@ -2,6 +2,7 @@ package com.example.google_task.task
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,10 +17,6 @@ class FavouriteTaskFragment : Fragment(R.layout.fragment_task), TaskListener {
     private val taskAdapter = TaskAdapter(this)
 
     private lateinit var binding : FragmentTaskBinding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -43,6 +40,10 @@ class FavouriteTaskFragment : Fragment(R.layout.fragment_task), TaskListener {
 
     override fun deleteTask(task: TaskEntity) {
         viewModel.deleteTask(task)
+    }
+
+    override fun showTaskDescription(task: TaskEntity) {
+        Toast.makeText(requireContext(), task.taskDescription, Toast.LENGTH_LONG).show()
     }
 
     private fun setObserve(){

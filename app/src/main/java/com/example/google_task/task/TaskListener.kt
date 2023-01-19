@@ -7,4 +7,6 @@ interface TaskListener {
     fun updateTask(task: TaskEntity)
 
     fun deleteTask(task: TaskEntity)
+
+    fun showTaskDescription(task: TaskEntity)
 }

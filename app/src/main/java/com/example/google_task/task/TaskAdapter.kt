@@ -2,6 +2,7 @@ package com.example.google_task.task
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -46,6 +47,10 @@ class TaskAdapter(
                 checkBoxFavorite.isChecked = task.isFavorite
                 textViewName.text = task.taskText
                 textViewName.paint.isStrikeThruText = task.isCompleted
+
+                textViewName.setOnClickListener {
+                    taskListener.showTaskDescription(task)
+                }
 
                 checkBoxFavorite.setOnClickListener{
                     task.isFavorite = !task.isFavorite

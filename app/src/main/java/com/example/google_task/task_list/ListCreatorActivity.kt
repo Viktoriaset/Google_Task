@@ -19,8 +19,9 @@ import dagger.hilt.android.AndroidEntryPoint
 class ListCreatorActivity : AppCompatActivity() {
 
     private val viewModel : ListViewModel by viewModels()
-    lateinit var binding: ActivityListCreatorBinding
+    private lateinit var binding: ActivityListCreatorBinding
     private lateinit var list: ListEntity
+    private var isUpdate = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +35,7 @@ class ListCreatorActivity : AppCompatActivity() {
             viewModel.getListByUUID(it).observe(this, Observer {
                 list = it
                 binding.editTextListName.text.insert(0, it.listName)
+                isUpdate = true
             })
         }
     }
@@ -48,15 +50,16 @@ class ListCreatorActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.list_create_menu_button){
-            val result = Intent()
-                .putExtra(
+            val result = Intent().putExtra(
                     ListCreatorContract.LIST_NAME,
                     binding.editTextListName.text.toString()
                 )
-                .putExtra(
-                    ListCreatorContract.UPDATE_LIST,
-                    list.listId.toString()
-                )
+            if(isUpdate) {
+                result.putExtra(
+                        ListCreatorContract.UPDATE_LIST,
+                        list.listId.toString()
+                    )
+            }
             setResult(Activity.RESULT_OK, result)
             finish()
         }
